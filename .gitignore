@@ -1,0 +1,11 @@
+﻿.moon/
+_build/
+*.exe
+*.dll
+*.so
+*.dylib
+*.pdb
+*.log
+.idea/
+.vscode/
+.DS_Store
