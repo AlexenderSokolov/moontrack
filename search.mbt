@@ -135,7 +135,7 @@ pub fn TrackingStore::experiments_by_name(
 pub fn TrackingStore::run_status_summary(
   self : TrackingStore,
 ) -> Map[String, Int] {
-  let summary : Map[String, Int] = {}
+  let summary : Map[String, Int] = Map([])
   for run in self.runs {
     let status_label = run.status().label()
     match summary.get(status_label) {
@@ -151,7 +151,7 @@ pub fn TrackingStore::run_status_summary(
 ///
 /// Returns a map from tag to the count of experiments with that tag.
 pub fn TrackingStore::tag_summary(self : TrackingStore) -> Map[String, Int] {
-  let summary : Map[String, Int] = {}
+  let summary : Map[String, Int] = Map([])
   for exp in self.experiments {
     for tag in exp.tags() {
       match summary.get(tag) {
