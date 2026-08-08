@@ -376,3 +376,41 @@ fn is_valid_transition(from : RunStatus, to : RunStatus) -> Bool {
     _ => false
   }
 }
+
+///|
+/// Add a tag to an experiment in the store.
+pub fn TrackingStore::add_experiment_tag(
+  self : TrackingStore,
+  experiment_id : String,
+  tag : String,
+) -> Result[Unit, TrackingError] {
+  match self.find_experiment_index(experiment_id) {
+    -1 => Err(ExperimentNotFound(experiment_id))
+    idx => {
+      let exp = self.experiments[idx]
+      let mut new_tags = exp.tags()
+      new_tags.push(tag)
+      self.experiments[idx] = exp.with_tags(new_tags)
+      Ok(())
+    }
+  }
+}
+
+///|
+/// Add a tag to a run in the store.
+pub fn TrackingStore::add_run_tag(
+  self : TrackingStore,
+  run_id : String,
+  tag : String,
+) -> Result[Unit, TrackingError] {
+  match self.find_run_index(run_id) {
+    -1 => Err(RunNotFound(run_id))
+    idx => {
+      let run = self.runs[idx]
+      let mut new_tags = run.tags()
+      new_tags.push(tag)
+      self.runs[idx] = run.with_tags(new_tags)
+      Ok(())
+    }
+  }
+}
