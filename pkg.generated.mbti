@@ -1,0 +1,312 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "AlexenderSokolov/moontrack"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn array_contains_string(Array[String], String) -> Bool
+
+// Errors
+
+// Types and methods
+pub struct Artifact {
+  // private fields
+} derive(Eq, @debug.Debug)
+pub fn Artifact::checksum(Self) -> String?
+pub fn Artifact::metadata(Self) -> Map[String, String]
+pub fn Artifact::name(Self) -> String
+pub fn Artifact::new(String, String, Int) -> Self
+pub fn Artifact::path(Self) -> String
+pub fn Artifact::size(Self) -> Int
+pub fn Artifact::with_checksum(Self, String) -> Self
+pub fn Artifact::with_metadata(Self, Map[String, String]) -> Self
+
+pub struct Experiment {
+  // private fields
+} derive(@debug.Debug)
+pub fn Experiment::created_at(Self) -> String
+pub fn Experiment::description(Self) -> String
+pub fn Experiment::find_run(Self, String) -> Run?
+pub fn Experiment::id(Self) -> String
+pub fn Experiment::metadata(Self) -> Map[String, String]
+pub fn Experiment::name(Self) -> String
+pub fn Experiment::new(String, String) -> Self
+pub fn Experiment::run_count(Self) -> Int
+pub fn Experiment::run_ids(Self) -> Array[String]
+pub fn Experiment::runs(Self) -> Array[Run]
+pub fn Experiment::tags(Self) -> Array[String]
+pub fn Experiment::with_created_at(Self, String) -> Self
+pub fn Experiment::with_description(Self, String) -> Self
+pub fn Experiment::with_metadata(Self, Map[String, String]) -> Self
+pub fn Experiment::with_tags(Self, Array[String]) -> Self
+
+pub struct ExperimentSearchFilter {
+  // private fields
+} derive(@debug.Debug)
+pub fn ExperimentSearchFilter::matches(Self, Experiment) -> Bool
+pub fn ExperimentSearchFilter::new() -> Self
+pub fn ExperimentSearchFilter::with_description_contains(Self, String) -> Self
+pub fn ExperimentSearchFilter::with_name_contains(Self, String) -> Self
+pub fn ExperimentSearchFilter::with_tags_any(Self, Array[String]) -> Self
+
+pub(all) enum JsonImportError {
+  InvalidJsonSyntax(String)
+  UnsupportedSchemaVersion(String)
+  MissingRequiredField(String)
+  InvalidFieldType(String)
+  UnknownField(String)
+  DuplicateExperimentId(String)
+  DuplicateRunId(String)
+  UnknownExperimentForRun(String)
+  InvalidRunStatus(String)
+  InvalidParamType(String)
+  InvalidMetricDirection(String)
+} derive(Eq, @debug.Debug)
+pub fn JsonImportError::message(Self) -> String
+
+pub(all) enum LineageError {
+  SelfParent(String)
+  ParentAlreadySet(String)
+  LineageCycle(String, String)
+  NoParent(String)
+} derive(Eq, @debug.Debug)
+pub fn LineageError::message(Self) -> String
+
+pub struct LineageTracker {
+  // private fields
+} derive(@debug.Debug)
+pub fn LineageTracker::ancestors(Self, String) -> Array[String]
+pub fn LineageTracker::children(Self, String) -> Array[String]
+pub fn LineageTracker::depth(Self, String) -> Int
+pub fn LineageTracker::descendants(Self, String) -> Array[String]
+pub fn LineageTracker::edge_count(Self) -> Int
+pub fn LineageTracker::has_children(Self, String) -> Bool
+pub fn LineageTracker::has_parent(Self, String) -> Bool
+pub fn LineageTracker::lineage_path(Self, String) -> Array[String]
+pub fn LineageTracker::new() -> Self
+pub fn LineageTracker::parent(Self, String) -> String
+pub fn LineageTracker::remove_parent(Self, String) -> Result[Unit, LineageError]
+pub fn LineageTracker::reparent(Self, String, String) -> Result[Unit, LineageError]
+pub fn LineageTracker::root(Self, String) -> String
+pub fn LineageTracker::set_parent(Self, String, String) -> Result[Unit, LineageError]
+
+pub struct Metric {
+  // private fields
+} derive(Eq, @debug.Debug)
+pub fn Metric::direction(Self) -> MetricDirection
+pub fn Metric::key(Self) -> String
+pub fn Metric::new(String, Double, Int, String) -> Self
+pub fn Metric::step(Self) -> Int
+pub fn Metric::threshold(Self) -> Double?
+pub fn Metric::timestamp(Self) -> String
+pub fn Metric::value(Self) -> Double
+pub fn Metric::with_direction(Self, MetricDirection) -> Self
+pub fn Metric::with_threshold(Self, Double) -> Self
+
+pub struct MetricDelta {
+  // private fields
+} derive(@debug.Debug)
+pub fn MetricDelta::baseline_value(Self) -> Double
+pub fn MetricDelta::comparison_value(Self) -> Double
+pub fn MetricDelta::delta(Self) -> Double
+pub fn MetricDelta::direction(Self) -> MetricDirection
+pub fn MetricDelta::improved(Self) -> Bool
+pub fn MetricDelta::key(Self) -> String
+pub fn MetricDelta::percent_change(Self) -> Double
+
+pub(all) enum MetricDirection {
+  HigherBetter
+  LowerBetter
+  None_
+} derive(Eq, @debug.Debug)
+pub fn MetricDirection::from_string(String) -> Self?
+pub fn MetricDirection::kind(Self) -> String
+pub fn MetricDirection::label(Self) -> String
+
+pub struct MetricStats {
+  // private fields
+} derive(@debug.Debug)
+pub fn MetricStats::count(Self) -> Int
+pub fn MetricStats::key(Self) -> String
+pub fn MetricStats::max_val(Self) -> Double
+pub fn MetricStats::mean_val(Self) -> Double
+pub fn MetricStats::min_val(Self) -> Double
+pub fn MetricStats::range(Self) -> Double
+pub fn MetricStats::std_dev(Self) -> Double
+pub fn MetricStats::values(Self) -> Array[Double]
+pub fn MetricStats::variance(Self) -> Double
+
+pub struct Param {
+  // private fields
+} derive(Eq, @debug.Debug)
+pub fn Param::description(Self) -> String
+pub fn Param::key(Self) -> String
+pub fn Param::new_bool(String, Bool) -> Self
+pub fn Param::new_float(String, Double) -> Self
+pub fn Param::new_int(String, Int) -> Self
+pub fn Param::new_string(String, String) -> Self
+pub fn Param::new_typed(String, String, ParamType) -> Self
+pub fn Param::type_(Self) -> ParamType
+pub fn Param::value(Self) -> String
+pub fn Param::with_description(Self, String) -> Self
+
+pub(all) enum ParamType {
+  IntParam
+  FloatParam
+  BoolParam
+  StringParam
+} derive(Eq, @debug.Debug)
+pub fn ParamType::from_string(String) -> Self?
+pub fn ParamType::kind(Self) -> String
+pub fn ParamType::label(Self) -> String
+
+pub struct ReproducibilityInfo {
+  // private fields
+} derive(Eq, @debug.Debug)
+pub fn ReproducibilityInfo::code_version(Self) -> String
+pub fn ReproducibilityInfo::command(Self) -> String
+pub fn ReproducibilityInfo::dependencies(Self) -> Array[String]
+pub fn ReproducibilityInfo::environment(Self) -> Map[String, String]
+pub fn ReproducibilityInfo::new(String, String) -> Self
+pub fn ReproducibilityInfo::random_seed(Self) -> Int?
+pub fn ReproducibilityInfo::with_dependencies(Self, Array[String]) -> Self
+pub fn ReproducibilityInfo::with_environment(Self, Map[String, String]) -> Self
+pub fn ReproducibilityInfo::with_random_seed(Self, Int) -> Self
+
+pub struct Run {
+  // private fields
+} derive(@debug.Debug)
+pub fn Run::add_artifact(Self, Artifact) -> Unit
+pub fn Run::add_metric(Self, Metric) -> Unit
+pub fn Run::add_note(Self, String) -> Unit
+pub fn Run::add_param(Self, Param) -> Unit
+pub fn Run::artifact_count(Self) -> Int
+pub fn Run::artifacts(Self) -> Array[Artifact]
+pub fn Run::end_time(Self) -> String
+pub fn Run::error_message(Self) -> String
+pub fn Run::experiment_id(Self) -> String
+pub fn Run::find_param(Self, String) -> Param?
+pub fn Run::id(Self) -> String
+pub fn Run::latest_metric(Self, String) -> Metric?
+pub fn Run::metric_count(Self) -> Int
+pub fn Run::metrics(Self) -> Array[Metric]
+pub fn Run::metrics_for(Self, String) -> Array[Metric]
+pub fn Run::new(String, String) -> Self
+pub fn Run::notes(Self) -> Array[String]
+pub fn Run::param_count(Self) -> Int
+pub fn Run::parameters(Self) -> Array[Param]
+pub fn Run::reproducibility(Self) -> ReproducibilityInfo?
+pub fn Run::set_end_time(Self, String) -> Self
+pub fn Run::set_reproducibility(Self, ReproducibilityInfo?) -> Unit
+pub fn Run::set_status(Self, RunStatus) -> Self
+pub fn Run::start_time(Self) -> String
+pub fn Run::status(Self) -> RunStatus
+pub fn Run::tags(Self) -> Array[String]
+pub fn Run::with_error_message(Self, String) -> Self
+pub fn Run::with_reproducibility(Self, ReproducibilityInfo) -> Self
+pub fn Run::with_start_time(Self, String) -> Self
+pub fn Run::with_tags(Self, Array[String]) -> Self
+
+pub struct RunComparison {
+  // private fields
+} derive(@debug.Debug)
+pub fn RunComparison::added_keys(Self) -> Array[String]
+pub fn RunComparison::baseline_id(Self) -> String
+pub fn RunComparison::comparison_id(Self) -> String
+pub fn RunComparison::deltas(Self) -> Array[MetricDelta]
+pub fn RunComparison::removed_keys(Self) -> Array[String]
+
+pub struct RunFilter {
+  // private fields
+} derive(@debug.Debug)
+pub fn RunFilter::matches(Self, Run) -> Bool
+pub fn RunFilter::new() -> Self
+pub fn RunFilter::with_metric_max(Self, String, Double) -> Self
+pub fn RunFilter::with_metric_min(Self, String, Double) -> Self
+pub fn RunFilter::with_param(Self, String, String) -> Self
+pub fn RunFilter::with_statuses(Self, Array[RunStatus]) -> Self
+pub fn RunFilter::with_tags_any(Self, Array[String]) -> Self
+
+pub(all) enum RunStatus {
+  Created
+  Running
+  Completed
+  Failed
+  Killed
+} derive(Eq, @debug.Debug)
+pub fn RunStatus::from_string(String) -> Self?
+pub fn RunStatus::kind(Self) -> String
+pub fn RunStatus::label(Self) -> String
+
+pub struct SortKey {
+  // private fields
+} derive(@debug.Debug)
+pub fn SortKey::by_metric_ascending(String) -> Self
+pub fn SortKey::by_metric_descending(String) -> Self
+pub fn SortKey::by_param_ascending(String) -> Self
+pub fn SortKey::by_param_descending(String) -> Self
+
+pub(all) enum TrackingError {
+  DuplicateExperiment(String)
+  ExperimentNotFound(String)
+  DuplicateRun(String)
+  RunNotFound(String)
+  InvalidStatusTransition(String, RunStatus, RunStatus)
+  ParamAlreadyExists(String, String)
+} derive(Eq, @debug.Debug)
+pub fn TrackingError::message(Self) -> String
+
+pub struct TrackingStore {
+  // private fields
+} derive(@debug.Debug)
+pub fn TrackingStore::add_note(Self, String, String) -> Result[Unit, TrackingError]
+pub fn TrackingStore::aggregate_all_metrics(Self, String) -> Result[Array[MetricStats], TrackingError]
+pub fn TrackingStore::aggregate_metric(Self, String, String) -> Result[MetricStats, TrackingError]
+pub fn TrackingStore::all_runs(Self) -> Array[Run]
+pub fn TrackingStore::best_run(Self, String, String) -> Result[Run, TrackingError]
+pub fn TrackingStore::compare_runs(Self, String, String) -> Result[RunComparison, TrackingError]
+pub fn TrackingStore::comparison_report(Self, String) -> String
+pub fn TrackingStore::complete_run(Self, String, String) -> Result[Run, TrackingError]
+pub fn TrackingStore::create_experiment(Self, String, String) -> Result[Experiment, TrackingError]
+pub fn TrackingStore::detailed_csv(Self, String) -> Result[String, TrackingError]
+pub fn TrackingStore::experiment_count(Self) -> Int
+pub fn TrackingStore::experiments_by_name(Self, String) -> Array[Experiment]
+pub fn TrackingStore::experiments_by_tag(Self, String) -> Array[Experiment]
+pub fn TrackingStore::experiments_table_markdown(Self) -> String
+pub fn TrackingStore::fail_run(Self, String, String, String) -> Result[Run, TrackingError]
+pub fn TrackingStore::from_json(String) -> Result[Self, JsonImportError]
+pub fn TrackingStore::get_experiment(Self, String) -> Result[Experiment, TrackingError]
+pub fn TrackingStore::get_run(Self, String) -> Result[Run, TrackingError]
+pub fn TrackingStore::import_run(Self, Run) -> Result[Unit, TrackingError]
+pub fn TrackingStore::kill_run(Self, String, String) -> Result[Run, TrackingError]
+pub fn TrackingStore::lineage_json(Self, LineageTracker, String) -> Result[String, TrackingError]
+pub fn TrackingStore::lineage_tree_markdown(Self, LineageTracker, String) -> Result[String, TrackingError]
+pub fn TrackingStore::list_experiments(Self) -> Array[String]
+pub fn TrackingStore::list_runs(Self) -> Array[String]
+pub fn TrackingStore::log_artifact(Self, String, Artifact) -> Result[Unit, TrackingError]
+pub fn TrackingStore::log_metric(Self, String, Metric) -> Result[Unit, TrackingError]
+pub fn TrackingStore::log_param(Self, String, Param) -> Result[Unit, TrackingError]
+pub fn TrackingStore::metrics_csv(Self, String) -> Result[String, TrackingError]
+pub fn TrackingStore::new() -> Self
+pub fn TrackingStore::run_count(Self) -> Int
+pub fn TrackingStore::run_markdown(Self, String) -> Result[String, TrackingError]
+pub fn TrackingStore::run_status_summary(Self) -> Map[String, Int]
+pub fn TrackingStore::runs_for_experiment(Self, String) -> Array[Run]
+pub fn TrackingStore::search_experiments(Self, ExperimentSearchFilter) -> Array[Experiment]
+pub fn TrackingStore::search_runs(Self, RunFilter, SortKey?) -> Array[Run]
+pub fn TrackingStore::set_reproducibility(Self, String, ReproducibilityInfo) -> Result[Unit, TrackingError]
+pub fn TrackingStore::start_run(Self, String, String, String) -> Result[Run, TrackingError]
+pub fn TrackingStore::summary(Self) -> String
+pub fn TrackingStore::tag_summary(Self) -> Map[String, Int]
+pub fn TrackingStore::to_json(Self) -> String
+pub fn TrackingStore::to_markdown(Self) -> String
+pub fn TrackingStore::total_artifact_count(Self) -> Int
+pub fn TrackingStore::total_metric_count(Self) -> Int
+pub fn TrackingStore::total_param_count(Self) -> Int
+
+// Type aliases
+
+// Traits
+
