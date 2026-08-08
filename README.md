@@ -1,4 +1,4 @@
-﻿# MoonTrack
+# MoonTrack
 
 MoonTrack is a MoonBit experiment tracking library for reproducible machine
 learning and scientific research. It records experiment parameters, metrics,
@@ -26,6 +26,10 @@ Chinese documentation is available in [README.zh.md](README.zh.md).
 - Sorts runs by metric or parameter values.
 - Compares two runs and computes metric deltas with improvement detection.
 - Exports Markdown reports, JSON snapshots, and CSV metric tables.
+- Searches experiments by name, description, or tags.
+- Tracks run lineage with parent-child relationships and cycle detection.
+- Computes metric statistics: median, percentile, correlation, std dev.
+- Validates store data integrity: empty names, unknown references, missing reproducibility.
 
 ## What It Deliberately Leaves Out
 
@@ -87,10 +91,20 @@ moontrack/
 |-- query.mbt               # RunFilter and SortKey: query and sort
 |-- compare.mbt             # RunComparison: metric delta and improvement
 |-- export.mbt              # Markdown/JSON/CSV export
+|-- search.mbt              # Experiment search and store statistics
+|-- lineage.mbt             # Run lineage tracking with cycle detection
+|-- enhanced_export.mbt     # Detailed CSV, comparison report, lineage trees
+|-- statistics.mbt          # Metric statistics: median, percentile, correlation
+|-- validation.mbt          # Store data integrity validation
 |-- tracking_test.mbt       # Core behavior tests
 |-- query_test.mbt          # Query and filter tests
 |-- compare_test.mbt        # Comparison framework tests
 |-- export_test.mbt         # Export format tests
+|-- search_test.mbt         # Search and statistics tests
+|-- lineage_test.mbt        # Lineage tracking tests
+|-- enhanced_export_test.mbt # Enhanced export tests
+|-- statistics_test.mbt     # Statistics tests
+|-- validation_test.mbt     # Validation tests
 |-- cmd/demo/               # Full demo CLI
 |-- cmd/track/              # Tracking CLI
 |-- cmd/query/              # Query CLI

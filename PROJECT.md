@@ -1,4 +1,4 @@
-﻿# MoonTrack 项目总览
+# MoonTrack 项目总览
 
 > 本文档是 MoonTrack 的项目级记忆，用于代码审阅、比赛验收、后续开发和版本发布。
 
@@ -10,9 +10,9 @@
 | 当前版本 | `0.1.0` |
 | 主要语言 | MoonBit |
 | 许可证 | Apache-2.0 |
-| GitHub | 待创建 |
-| Mooncakes | 待发布 |
-| 测试 | 49 项测试通过 |
+| GitHub | https://github.com/AlexenderSokolov/moontrack |
+| Mooncakes | 待发布至 mooncakes.io |
+| 测试 | 129 项测试通过 |
 | CLI 工具 | demo, track, query, bench |
 
 ## 2. 问题背景与设计目的
