@@ -1,0 +1,8 @@
+import {
+  "moonbitlang/core/json",
+  "AlexenderSokolov/moontrack",
+}
+
+options(
+  "is-main": true,
+)
