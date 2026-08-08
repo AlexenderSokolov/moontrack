@@ -8,6 +8,12 @@ import {
 // Values
 pub fn array_contains_string(Array[String], String) -> Bool
 
+pub fn median_doubles(Array[Double]) -> Double
+
+pub fn percentile_doubles(Array[Double], Double) -> Double
+
+pub fn sort_doubles(Array[Double]) -> Array[Double]
+
 // Errors
 
 // Types and methods
@@ -138,6 +144,25 @@ pub fn MetricStats::std_dev(Self) -> Double
 pub fn MetricStats::values(Self) -> Array[Double]
 pub fn MetricStats::variance(Self) -> Double
 
+pub struct MetricSummary {
+  // private fields
+} derive(@debug.Debug)
+pub fn MetricSummary::coefficient_of_variation(Self) -> Double
+pub fn MetricSummary::count(Self) -> Int
+pub fn MetricSummary::iqr(Self) -> Double
+pub fn MetricSummary::key(Self) -> String
+pub fn MetricSummary::max_val(Self) -> Double
+pub fn MetricSummary::mean_val(Self) -> Double
+pub fn MetricSummary::median_val(Self) -> Double
+pub fn MetricSummary::min_val(Self) -> Double
+pub fn MetricSummary::percentile(Self, Double) -> Double
+pub fn MetricSummary::q1(Self) -> Double
+pub fn MetricSummary::q3(Self) -> Double
+pub fn MetricSummary::range(Self) -> Double
+pub fn MetricSummary::stddev_val(Self) -> Double
+pub fn MetricSummary::values(Self) -> Array[Double]
+pub fn MetricSummary::variance(Self) -> Double
+
 pub struct Param {
   // private fields
 } derive(Eq, @debug.Debug)
@@ -261,9 +286,12 @@ pub fn TrackingError::message(Self) -> String
 pub struct TrackingStore {
   // private fields
 } derive(@debug.Debug)
+pub fn TrackingStore::add_experiment_tag(Self, String, String) -> Result[Unit, TrackingError]
 pub fn TrackingStore::add_note(Self, String, String) -> Result[Unit, TrackingError]
+pub fn TrackingStore::add_run_tag(Self, String, String) -> Result[Unit, TrackingError]
 pub fn TrackingStore::aggregate_all_metrics(Self, String) -> Result[Array[MetricStats], TrackingError]
 pub fn TrackingStore::aggregate_metric(Self, String, String) -> Result[MetricStats, TrackingError]
+pub fn TrackingStore::all_metric_summaries(Self, String) -> Result[Array[MetricSummary], TrackingError]
 pub fn TrackingStore::all_runs(Self) -> Array[Run]
 pub fn TrackingStore::best_run(Self, String, String) -> Result[Run, TrackingError]
 pub fn TrackingStore::compare_runs(Self, String, String) -> Result[RunComparison, TrackingError]
@@ -288,6 +316,8 @@ pub fn TrackingStore::list_runs(Self) -> Array[String]
 pub fn TrackingStore::log_artifact(Self, String, Artifact) -> Result[Unit, TrackingError]
 pub fn TrackingStore::log_metric(Self, String, Metric) -> Result[Unit, TrackingError]
 pub fn TrackingStore::log_param(Self, String, Param) -> Result[Unit, TrackingError]
+pub fn TrackingStore::metric_correlation(Self, String, String, String) -> Result[Double, TrackingError]
+pub fn TrackingStore::metric_summary(Self, String, String) -> Result[MetricSummary, TrackingError]
 pub fn TrackingStore::metrics_csv(Self, String) -> Result[String, TrackingError]
 pub fn TrackingStore::new() -> Self
 pub fn TrackingStore::run_count(Self) -> Int
@@ -298,6 +328,7 @@ pub fn TrackingStore::search_experiments(Self, ExperimentSearchFilter) -> Array[
 pub fn TrackingStore::search_runs(Self, RunFilter, SortKey?) -> Array[Run]
 pub fn TrackingStore::set_reproducibility(Self, String, ReproducibilityInfo) -> Result[Unit, TrackingError]
 pub fn TrackingStore::start_run(Self, String, String, String) -> Result[Run, TrackingError]
+pub fn TrackingStore::statistics_report(Self, String) -> Result[String, TrackingError]
 pub fn TrackingStore::summary(Self) -> String
 pub fn TrackingStore::tag_summary(Self) -> Map[String, Int]
 pub fn TrackingStore::to_json(Self) -> String
@@ -305,8 +336,40 @@ pub fn TrackingStore::to_markdown(Self) -> String
 pub fn TrackingStore::total_artifact_count(Self) -> Int
 pub fn TrackingStore::total_metric_count(Self) -> Int
 pub fn TrackingStore::total_param_count(Self) -> Int
+pub fn TrackingStore::validate(Self) -> ValidationResult
+
+pub struct ValidationIssue {
+  // private fields
+} derive(@debug.Debug)
+pub fn ValidationIssue::code(Self) -> String
+pub fn ValidationIssue::experiment_id(Self) -> String?
+pub fn ValidationIssue::message(Self) -> String
+pub fn ValidationIssue::new(ValidationSeverity, String, String) -> Self
+pub fn ValidationIssue::run_id(Self) -> String?
+pub fn ValidationIssue::severity(Self) -> ValidationSeverity
+pub fn ValidationIssue::with_experiment_id(Self, String) -> Self
+pub fn ValidationIssue::with_run_id(Self, String) -> Self
+
+pub struct ValidationResult {
+  // private fields
+} derive(@debug.Debug)
+pub fn ValidationResult::add_issue(Self, ValidationIssue) -> Unit
+pub fn ValidationResult::count_by_severity(Self, ValidationSeverity) -> Int
+pub fn ValidationResult::error_count(Self) -> Int
+pub fn ValidationResult::is_valid(Self) -> Bool
+pub fn ValidationResult::issue_count(Self) -> Int
+pub fn ValidationResult::issues(Self) -> Array[ValidationIssue]
+pub fn ValidationResult::new() -> Self
+pub fn ValidationResult::summary(Self) -> String
+pub fn ValidationResult::warning_count(Self) -> Int
+
+pub(all) enum ValidationSeverity {
+  Error
+  Warning
+} derive(Eq, @debug.Debug)
+pub fn ValidationSeverity::kind(Self) -> String
+pub fn ValidationSeverity::label(Self) -> String
 
 // Type aliases
 
 // Traits
-
